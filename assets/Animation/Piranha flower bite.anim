@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Piranha flower bite",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.1833333333333333,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "ade54312-0683-4df7-a21d-774573799d29"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "be47afdc-9322-4ceb-8ab6-efd62a342293"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "be47afdc-9322-4ceb-8ab6-efd62a342293"
+            }
+          },
+          {
+            "frame": 0.75,
+            "value": {
+              "__uuid__": "be47afdc-9322-4ceb-8ab6-efd62a342293"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "ade54312-0683-4df7-a21d-774573799d29"
+            }
+          },
+          {
+            "frame": 1.1666666666666667,
+            "value": {
+              "__uuid__": "ade54312-0683-4df7-a21d-774573799d29"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

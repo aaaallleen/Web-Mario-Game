@@ -1,0 +1,109 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Piranha flower rise",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.1166666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "97ecbf65-6ad7-41f9-8f11-f5c7b5d1a342"
+            }
+          },
+          {
+            "frame": 0.08333333333333333,
+            "value": {
+              "__uuid__": "7c24f503-69c8-462d-a638-fcafcec3e951"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "5046fc20-1afc-4541-85ef-7e66a8df9ed7"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "b5d48ff3-87ca-41fc-be53-0e62a10cad16"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "5873e325-eada-4518-963e-bbdacaf6fd52"
+            }
+          },
+          {
+            "frame": 0.4166666666666667,
+            "value": {
+              "__uuid__": "90abe634-63cd-4f7d-bf8e-e9bfede8e071"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "637eb48b-2c09-4bd1-9b40-63d8d6843e9f"
+            }
+          },
+          {
+            "frame": 0.5833333333333334,
+            "value": {
+              "__uuid__": "128432da-186d-40c5-9a39-44b1b5706a7a"
+            }
+          },
+          {
+            "frame": 0.6666666666666666,
+            "value": {
+              "__uuid__": "25c67333-15c5-4916-82b9-b6c82f6ef0a7"
+            }
+          },
+          {
+            "frame": 0.75,
+            "value": {
+              "__uuid__": "4c69bf5c-2793-48ef-8259-088724b33191"
+            }
+          },
+          {
+            "frame": 0.8333333333333334,
+            "value": {
+              "__uuid__": "7092b20a-5d49-4985-afbe-2b84251778bb"
+            }
+          },
+          {
+            "frame": 0.9166666666666666,
+            "value": {
+              "__uuid__": "97e64ce1-e99a-4215-a67f-e015e74a7805"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "9278cac6-d20c-4f49-8bf7-a4442a3c9526"
+            }
+          },
+          {
+            "frame": 1.0833333333333333,
+            "value": {
+              "__uuid__": "c1ed9e98-d304-461b-8d5f-aee9cc934edf"
+            }
+          },
+          {
+            "frame": 1.1,
+            "value": {
+              "__uuid__": "97ecbf65-6ad7-41f9-8f11-f5c7b5d1a342"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

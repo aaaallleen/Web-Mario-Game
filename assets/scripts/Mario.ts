@@ -11,11 +11,11 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class Player extends cc.Component {
     isFaceRight: boolean = true;
 
     @property 
-    jumpHeight: number = 0;
+    jumpHeight: number = 5000;
 
     @property
     jumpTime: number = 0;
@@ -27,43 +27,74 @@ export default class NewClass extends cc.Component {
     speed: number = 0;
 
     @property
-    onGround: boolean = true;
+    Xmove: boolean = false;
+
     
-    @property
-    isDead: boolean = false;
-
-    // LIFE-CYCLE CALLBACKS:
-    @property
-    movement: number = 0;
-    // idle:0, right, left:1, jump: 2;
-
+    
     anim: cc.Animation=null;
-    // onLoad () {}
+    isDead: boolean = false;
+    jumpable: boolean= true;
+    rightBtn: boolean = false;
+    leftBtn: boolean = false;
+    onGround: boolean = true;
+    keypressed: number = 0;
 
-    start () {
+    onLoad(){
+        cc.director.getPhysicsManager().enabled = true;
         cc.director.getCollisionManager().enabled = true;
         cc.director.getCollisionManager().enabledDrawBoundingBox = true;
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+    }
+    start(){
         this.anim = this.getComponent(cc.Animation);
     }
     onKeyDown(event: cc.Event.EventKeyboard){
         if(event.keyCode == cc.macro.KEY.d){
-            this.movement = 1;
+            this.Xmove = true;
             this.isFaceRight = true;
+            if(this.rightBtn == false){
+                this.keypressed++;
+                this.rightBtn = true;
+            }
         }
         if(event.keyCode == cc.macro.KEY.a){
-            this.movement = 1; 
+            this.Xmove = true; 
             this.isFaceRight = false;
+            if(this.leftBtn == false){
+                this.keypressed++;
+                this.leftBtn = true;
+            }
         }
-        
+        if(event.keyCode == cc.macro.KEY.space && this.jumpable == true){
+            this.getComponent(cc.RigidBody).applyForceToCenter(cc.v2(0,this.jumpHeight),true);
+        }
     }
     onKeyUp(event: cc.Event.EventKeyboard){
         if(event.keyCode == cc.macro.KEY.d){
-            this.movement = 0;
+            this.rightBtn = false;
+            this.keypressed--;
+
+            if(this.keypressed <= 0 ){
+                this.Xmove = false;
+                this.keypressed = 0;
+            }
+            else{
+                this.isFaceRight = false;
+            }
+                 
         }
         if(event.keyCode == cc.macro.KEY.a){
-            this.movement = 0;
+            this.leftBtn = false;
+            this.keypressed--;
+            if(this.keypressed <= 0){
+                this.Xmove = false;
+                this.keypressed = 0;
+            }
+            else{
+                this.isFaceRight = true;
+            }
+            
         }
 
     }
@@ -73,12 +104,29 @@ export default class NewClass extends cc.Component {
         }
         else
             this.node.scaleX = -1;
-        if(this.anim.getAnimationState("Run").isPlaying == false && this.movement == 1){
-            this.anim.play("Run");
+
+        
+        if(this.anim.getAnimationState("Mario Run").isPlaying == false && this.Xmove == true){
+            this.anim.play("Mario Run");
         }
-        if(this.movement == 0){
-            this.anim.play("Idle");
+
+        if(this.Xmove == false){
+            this.anim.play("Mario Idle");
+        }
+        if(this.Xmove){
+            this.node.x += this.speed * dt * this.node.scaleX;
         }
         
     }
+   
+    onBeginContact(contact, self, other){
+        if(contact.getWorldManifold().normal.y < -0.7 ){
+            this.jumpable = true;
+        }
+    }
+    onEndContact(contact, self, other){
+        if(contact.getWorldManifold().normal.y < -0.8 )
+            this.jumpable = false;
+    }
+    
 }
