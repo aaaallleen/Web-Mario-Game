@@ -40,17 +40,15 @@ export default class Turtle extends cc.Component {
             this.node.x +=  this.speed * dt * this.node.scaleX;
         }
         else{
-            if(this.attack >= 2){
+            if(this.attack == 0){
                 if(this.anim.getAnimationState("Turtle attack").isPlaying == false)
                     this.anim.play("Turtle attack");
-                this.speed = (this.isFaceLeft)?200:-200;
-                this.node.scaleX = (this.isFaceLeft)?1:-1;
-                this.node.x += this.speed * dt * this.node.scaleX; 
             }
             else{
                 if(this.anim.getAnimationState("Turtle Dead").isPlaying == false)
                     this.anim.play("Turtle Dead");
             }
+            this.node.x +=  this.speed * dt ;  
         }
         
         if(this.isFaceLeft){
@@ -65,21 +63,21 @@ export default class Turtle extends cc.Component {
     
     onBeginContact(contact, self, other){
         if(other.node.name == "Player"){
-            cc.log(this.speed);
             if(contact.getWorldManifold().normal.y > 0.8 ){
                 this.isDead = true;
-                if(this.attack<2){
+                if(this.attack == 0){
                     this.attack++;
+                    this.speed = 0;
                 }
-                    else{
-                    this.attack = 1;
+                else{
+                    this.speed = (this.isFaceLeft)?-250:250;
+                    this.attack = 0;
                 }
             }
         }
         else{
             if(contact.getWorldManifold().normal.x > 0.8 || contact.getWorldManifold().normal.x < -0.8){
-                this.isFaceLeft = !this.isFaceLeft;
-
+                this.speed *= -1;
                 cc.log("collision with non player");
             }
         }

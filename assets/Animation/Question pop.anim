@@ -1,6 +1,6 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "Piranha flower rise",
+  "_name": "Question pop",
   "_objFlags": 0,
   "_native": "",
   "_duration": 0.016666666666666666,
@@ -14,7 +14,7 @@
           {
             "frame": 0,
             "value": {
-              "__uuid__": "be47afdc-9322-4ceb-8ab6-efd62a342293"
+              "__uuid__": "d2c0eab2-2d59-41cf-bc12-a4590809c092"
             }
           }
         ]

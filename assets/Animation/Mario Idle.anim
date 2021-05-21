@@ -1,6 +1,6 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "Idle",
+  "_name": "Mario Idle",
   "_objFlags": 0,
   "_native": "",
   "_duration": 0.016666666666666666,
@@ -14,7 +14,7 @@
           {
             "frame": 0,
             "value": {
-              "__uuid__": "ecc9546a-72dd-429d-b2cc-980af16fef57"
+              "__uuid__": "0aa9f909-ab0b-4797-bfbd-c2c5a9fb7ec5"
             }
           }
         ]

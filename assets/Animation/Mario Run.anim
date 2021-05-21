@@ -1,9 +1,9 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "Run",
+  "_name": "Mario Run",
   "_objFlags": 0,
   "_native": "",
-  "_duration": 0.21666666666666667,
+  "_duration": 0.15,
   "sample": 60,
   "speed": 1,
   "wrapMode": 2,
@@ -14,25 +14,19 @@
           {
             "frame": 0,
             "value": {
-              "__uuid__": "d95d501f-560f-47ac-b44c-5949b87d7014"
+              "__uuid__": "e3489c42-df8a-4489-ba28-fda7e4033c08"
             }
           },
           {
             "frame": 0.06666666666666667,
             "value": {
-              "__uuid__": "a8c63a49-c0d3-4c84-9928-1ac471a36c56"
+              "__uuid__": "f05436fd-2ed1-4808-842b-9552d410bbdc"
             }
           },
           {
             "frame": 0.13333333333333333,
             "value": {
-              "__uuid__": "5cc3d930-c7b8-483c-8836-b01ec046b677"
-            }
-          },
-          {
-            "frame": 0.2,
-            "value": {
-              "__uuid__": "69d9f3c1-fe3b-414d-8f4d-a9229be5aa54"
+              "__uuid__": "e3489c42-df8a-4489-ba28-fda7e4033c08"
             }
           }
         ]
