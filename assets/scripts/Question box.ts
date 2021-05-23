@@ -7,12 +7,19 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-import playerData from "./Global";
+import items from "./items"
 const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class NewClass extends cc.Component {
 
+    @property (cc.Prefab)
+    Coin: cc.Prefab = null;
+
+    @property (cc.Prefab)
+    Mushroom: cc.Prefab = null;
+    
+    
     private popped: boolean = false;
     private anim: cc.Animation = null;
 
@@ -43,9 +50,21 @@ export default class NewClass extends cc.Component {
     }
     onEndContact(contact, self , other){
         if(other.node.name == "Player"){
-            if(contact.getWorldManifold().normal.y < -0.9 && this.popped == false ){
+            if(contact.getWorldManifold().normal.y == -1 && this.popped == false ){
+                cc.log("get ya coin");
                 this.popped = true;
+                this.activateItem();
             }
+        }
+    }
+    activateItem(){
+        if(Math.random()> 1){
+            var item = cc.instantiate(this.Mushroom);
+            item.getComponent(items).init(this.node);
+        }
+        else{
+            var item = cc.instantiate(this.Coin);
+            item.getComponent(items).init(this.node);
         }
     }
 }

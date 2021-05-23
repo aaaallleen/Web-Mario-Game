@@ -9,7 +9,7 @@ export default class Turtle extends cc.Component {
     @property
     walktime: number = 0;
 
-    isDead: boolean = false;
+    public isDead: boolean = false;
     isFaceLeft: boolean = true;
     anim: cc.Animation = null;
     attack: number = 0;
@@ -78,7 +78,6 @@ export default class Turtle extends cc.Component {
         else{
             if(contact.getWorldManifold().normal.x > 0.8 || contact.getWorldManifold().normal.x < -0.8){
                 this.speed *= -1;
-                cc.log("collision with non player");
             }
         }
         

@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Mario die",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.85,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 0,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "66a4ba02-05f4-4d20-9b91-5f480688cea9"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "97ecbf65-6ad7-41f9-8f11-f5c7b5d1a342"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "9375ea09-0324-4100-a35e-ffc48b732c2f"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "97ecbf65-6ad7-41f9-8f11-f5c7b5d1a342"
+            }
+          },
+          {
+            "frame": 0.6666666666666666,
+            "value": {
+              "__uuid__": "4444c03f-29c5-440f-b674-a9ca083423fa"
+            }
+          },
+          {
+            "frame": 0.8333333333333334,
+            "value": {
+              "__uuid__": "97ecbf65-6ad7-41f9-8f11-f5c7b5d1a342"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

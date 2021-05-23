@@ -7,7 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-import playerData from "./Global";
+import playerData = require("./Global");
 
 const {ccclass, property} = cc._decorator;
 
@@ -24,14 +24,14 @@ export default class NewClass extends cc.Component {
     soundeffectslider: cc.Slider = null;
     
     popupOpen: boolean = false;
-    // onLoad () {}
 
-    start () {
-        this.soundeffectslider.progress = playerData.effectvolume;
-        this.bgmslider.progress = playerData.bgmvolume;
-    }
+    // start () {
+        
+    // }
     popup(){
         if(!this.popupOpen){
+            this.soundeffectslider.progress = playerData.effectvolume;
+            this.bgmslider.progress = playerData.bgmvolume;
             this.node.active = true;
             this.node.opacity = 0;
             this.node.scale = 0.2;
@@ -39,6 +39,7 @@ export default class NewClass extends cc.Component {
             .to(0.5,{scale: 1, opacity: 255}, {easing:"quartInOut"})
             .start();
             this.popupOpen = true;
+
         }
         
         
@@ -57,5 +58,4 @@ export default class NewClass extends cc.Component {
     setbgmVolume(){
         playerData.bgmvolume = this.bgmslider.progress;
     }
-    // update (dt) {}
 }
