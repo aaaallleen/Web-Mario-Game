@@ -1,0 +1,43 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Mario grow",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 1.85,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "27efe2d5-26b3-45a4-8fb2-a9923dce2d99"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "147f7826-87c6-4ed9-8265-33d5fe58a18f"
+            }
+          },
+          {
+            "frame": 1.1666666666666667,
+            "value": {
+              "__uuid__": "27efe2d5-26b3-45a4-8fb2-a9923dce2d99"
+            }
+          },
+          {
+            "frame": 1.8333333333333333,
+            "value": {
+              "__uuid__": "147f7826-87c6-4ed9-8265-33d5fe58a18f"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

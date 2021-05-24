@@ -17,6 +17,9 @@ export default class Player extends cc.Component {
     @property 
     jumpHeight: number = 5000;
 
+    @property(cc.Animation)
+    Anim: cc.Animation = null;
+
     @property
     jumpTime: number = 0;
 
@@ -28,7 +31,6 @@ export default class Player extends cc.Component {
 
     @property
     Xmove: boolean = false;
-
 
     @property({type: cc.AudioClip})
     jumpEffect: cc.AudioClip = null;
@@ -55,6 +57,7 @@ export default class Player extends cc.Component {
     private camfollow: boolean = false;
     private lowerbound: cc.Node = null;
     private scrollable: boolean = true;
+    private grow: boolean = false;
     private playerspeed: number = 0;
     
     camera: cc.Node = null;
@@ -134,19 +137,23 @@ export default class Player extends cc.Component {
     
         cc.audioEngine.setEffectsVolume(playerData.effectvolume);
         cc.audioEngine.setMusicVolume(playerData.bgmvolume);
-       
+        if(this.isDead == true && this.Anim.getAnimationState("Change Scene").isPlaying == false ){
+            this.Anim.play("Change Scene");
+        }
         if(this.isFaceRight){
             this.node.scaleX = 1
         }
         else
             this.node.scaleX = -1;
 
-        
+        if(this.grow == true &&this.Anim.getAnimationState("Mario grow").isPlaying == false  ){
+            this.anim.play("Mario grow");
+        }
         if(this.anim.getAnimationState("Mario Run").isPlaying == false && this.Xmove == true){
             this.anim.play("Mario Run");
         }
 
-        if(this.Xmove == false && this.takeAttack == false){
+        if(this.Xmove == false && this.takeAttack == false && this.grow == false){
             this.anim.play("Mario Idle");
         }
         if(this.takeAttack == true && this.anim.getAnimationState("Mario die").isPlaying == false ){
@@ -184,11 +191,15 @@ export default class Player extends cc.Component {
         if(other.node.name == 'Lower bound'){
             this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 200);
             this.jumpable = false;
-            other.node.active = false;
-            cc.audioEngine.stopAll();
+            this.getComponent(cc.PhysicsBoxCollider).enabled = false;
+            cc.audioEngine.stopMusic();
+            cc.audioEngine.playEffect(this.loselife,false);
+            this.scheduleOnce(function(){
+                this.isDead = true;
+            }, 0.5);
             this.scheduleOnce(function(){
                 cc.director.loadScene("Life count");
-            }, 2);
+            }, 1);
             
         }
         else if(other.node.name == 'stop scroll'){
@@ -199,10 +210,16 @@ export default class Player extends cc.Component {
         else if(other.node.name == 'Turtle'  && other.getComponent('Turtle').isDead  == false){
             if(contact.getWorldManifold().normal.x == 1 || contact.getWorldManifold().normal.x == -1){
                 if(this.attacked == false){
+                    if(contact.getWorldManifold().normal.x > 0){
+                        this.getComponent(cc.RigidBody).linearVelocity = cc.v2(-200, 200);
+                    }
+                    else if(contact.getWorldManifold().normal.x <0 ){
+                        this.getComponent(cc.RigidBody).linearVelocity = cc.v2(200, 200);
+                    }
+                    this.getComponent(cc.PhysicsBoxCollider).enabled = false;
                     this.attacked = true; 
                     this.takeAttack = true;
                     cc.audioEngine.playEffect(this.powerdown,false);
-                    this.getComponent(cc.RigidBody).linearVelocity = cc.v2(-200, 200);
                     cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
                     cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);             
                     this.getComponent(cc.PhysicsBoxCollider).size.height = 36;
@@ -213,6 +230,7 @@ export default class Player extends cc.Component {
                     
                     this.scheduleOnce(function(){
                         this.takeAttack = false;
+                        this.getComponent(cc.PhysicsBoxCollider).enabled = true;
                         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
                         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
                         this.isFaceRight = !this.isFaceRight;
@@ -220,15 +238,89 @@ export default class Player extends cc.Component {
                     },0.5)
                 }
                 else{
+                    this.isDead = true;
                     cc.audioEngine.stopMusic();
                     cc.audioEngine.playEffect(this.loselife,false);
                     this.getComponent(cc.PhysicsBoxCollider).destroy();
                     this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 200);
-                    
+                    this.scheduleOnce(function(){
+                        this.isDead = true;
+                    }, 0.5);
+                    this.scheduleOnce(function(){
+                        cc.director.loadScene("Life count");
+                    }, 1);
                 }
             }
         }
+        else if(other.node.name == "Flower"){
+            if(this.attacked == false){
+                if(contact.getWorldManifold().normal.x > 0){
+                    this.getComponent(cc.RigidBody).linearVelocity = cc.v2(-200, 100);
+                }
+                else if(contact.getWorldManifold().normal.x < 0){
+                    this.getComponent(cc.RigidBody).linearVelocity = cc.v2(200, 100);
+                }
+                else if(contact.getWorldManifold().normal.y <= -0.8){
+                    this.getComponent(cc.RigidBody).linearVelocity = cc.v2(-200, 100);
+                }
+                    this.getComponent(cc.PhysicsBoxCollider).enabled = false;
+                    this.attacked = true; 
+                    this.takeAttack = true;
+                    cc.audioEngine.playEffect(this.powerdown,false);
+                    cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+                    cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);             
+                    this.getComponent(cc.PhysicsBoxCollider).size.height = 36;
+                    this.getComponent(cc.PhysicsBoxCollider).size.width = 19;       
+                    cc.tween(this.node)
+                    .to(1,{width:19, height: 36 }, {easing:"quartInOut"})
+                    .start();
+                    
+                    this.scheduleOnce(function(){
+                        this.getComponent(cc.PhysicsBoxCollider).enabled = true;
+                        this.takeAttack = false;
+                        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+                        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+                        this.isFaceRight = !this.isFaceRight;
+                        this.Xmove = false
+                    },0.5)
 
+                   
+            }
+            else{
+                
+                cc.audioEngine.stopMusic();
+                cc.audioEngine.playEffect(this.loselife,false);
+                this.getComponent(cc.PhysicsBoxCollider).destroy();
+                this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 200);
+                this.scheduleOnce(function(){
+                    this.isDead = true;
+                }, 0.5);
+                this.scheduleOnce(function(){
+                    cc.director.loadScene("Life count");
+                }, 1);
+            }
+        }
+        else if(other.node.name == "Mushroom"){
+            if(this.attacked == false){
+                other.node.destroy();
+            }
+            else{
+                other.node.destroy();
+                this.grow = true;
+                this.attacked = false;
+                this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
+                cc.audioEngine.playEffect(this.powerup,false);
+                this.getComponent(cc.PhysicsBoxCollider).size.height = 54;
+                this.getComponent(cc.PhysicsBoxCollider).size.width = 28;   
+                cc.tween(this.node)
+                    .to(1,{width:28, height: 54 }, {easing:"quartInOut"})
+                    .start();
+                this.scheduleOnce(function(){
+                    this.grow = false
+                }, 1)
+
+            }
+        }
         
 
     }

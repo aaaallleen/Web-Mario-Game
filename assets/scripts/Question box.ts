@@ -58,7 +58,7 @@ export default class NewClass extends cc.Component {
         }
     }
     activateItem(){
-        if(Math.random()> 1){
+        if(Math.random() > 0.9){
             var item = cc.instantiate(this.Mushroom);
             item.getComponent(items).init(this.node);
         }

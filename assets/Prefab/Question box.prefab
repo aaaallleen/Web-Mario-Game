@@ -60,8 +60,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -135.99,
-        -151.95,
+        288.01,
+        -64.464,
         0,
         0,
         0,
@@ -156,13 +156,13 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": -0.07,
-      "y": 0.02
+      "x": -0.1,
+      "y": -0.3
     },
     "_size": {
       "__type__": "cc.Size",
       "width": 16,
-      "height": 16
+      "height": 16.5
     },
     "_id": ""
   },
@@ -210,9 +210,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "86ec85d4-28c9-41a9-88c0-1d5202792a9e"
+      "__uuid__": "f3668b87-b083-4cd9-bdcc-538d9f4b0d58"
     },
-    "fileId": "8eyLbKAS9KkqyWrIdvWWKw",
+    "fileId": "35TcDijOlKmbGbiMPZsKmt",
     "sync": false
   }
 ]

@@ -43,7 +43,8 @@ export default class items extends cc.Component {
             },0.4)
         }
         else if(this.node.name == 'Mushroom'){
-
+            this.node.position = cc.v2(0, 19);
+            this.speed = 70;
         }
     }
     onLoad () {
@@ -57,18 +58,25 @@ export default class items extends cc.Component {
     }
 
     update (dt) {
-        
+        this.node.x += this.speed * dt;
     } 
     onBeginContact(contact, self, other){
-        if(other.node.name == "Player"){
+        if(other.node.name == "Player" && self.node.name == "Coin"){
             this.playervel = other.getComponent(cc.RigidBody).linearVelocity;
             this.node.destroy();
             cc.audioEngine.playEffect(this.coinEffect, false); 
         }
+        else if(other.node.name == "Lower bound"){
+            self.node.destroy();
+        }
+        else{
+            this.speed *= -1;
+        }
     }
     onEndContact(contact, self, other){
-        if(other.node.name == "Player"){
+        if(other.node.name == "Player"&& self.node.name == "Coin"){
             other.getComponent(cc.RigidBody).linearVelocity = this.playervel;
         }
+        
     }
 }

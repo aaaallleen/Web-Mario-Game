@@ -37,7 +37,7 @@ export default class Turtle extends cc.Component {
             }
             if(this.anim.getAnimationState("Turtle Alive").isPlaying == false)
                 this.anim.play("Turtle Alive");
-            this.node.x +=  this.speed * dt * this.node.scaleX;
+            this.node.x +=  this.speed * dt;
         }
         else{
             if(this.attack == 0){
@@ -63,21 +63,36 @@ export default class Turtle extends cc.Component {
     
     onBeginContact(contact, self, other){
         if(other.node.name == "Player"){
-            if(contact.getWorldManifold().normal.y > 0.8 ){
+            if(contact.getWorldManifold().normal.y > 0.9  && this.isDead == false){
                 this.isDead = true;
-                if(this.attack == 0){
+                this.speed = 0;
+                other.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 200);
+            }
+            if(this.isDead == true){
+                if(this.attack == 0 && contact.getWorldManifold().normal.y > 0.9){
                     this.attack++;
                     this.speed = 0;
+                    other.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 200);
                 }
-                else{
+                else if (this.attack == 1){
                     this.speed = (this.isFaceLeft)?-250:250;
                     this.attack = 0;
+                    other.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 200);
                 }
             }
         }
+        else if(other.node.name == "Lower bound"){
+            this.getComponent(cc.PhysicsBoxCollider).enabled = false;
+            this.node.destroy();
+        }
         else{
-            if(contact.getWorldManifold().normal.x > 0.8 || contact.getWorldManifold().normal.x < -0.8){
+            if((contact.getWorldManifold().normal.x > 0.8 || contact.getWorldManifold().normal.x < -0.8)&& this.isDead == true) {
                 this.speed *= -1;
+            }
+            else if((contact.getWorldManifold().normal.x > 0.8 || contact.getWorldManifold().normal.x < -0.8)&& this.isDead == false){
+                this.isFaceLeft = !this.isFaceLeft;
+                this.speed *= -1;
+                this.timer = 0;
             }
         }
         

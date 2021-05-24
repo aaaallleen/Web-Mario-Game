@@ -23,8 +23,6 @@ export default class NewClass extends cc.Component {
 
     @property({type: cc.AudioClip})
     welcomebgm: cc.AudioClip = null;
-
-    
     played: boolean = false;
     onLoad () {
         cc.audioEngine.setMusicVolume(playerData.bgmvolume);
