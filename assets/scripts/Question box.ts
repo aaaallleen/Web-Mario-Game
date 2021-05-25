@@ -19,6 +19,8 @@ export default class NewClass extends cc.Component {
     @property (cc.Prefab)
     Mushroom: cc.Prefab = null;
     
+    @property({type:cc.AudioClip})
+    MushroomAppear: cc.AudioClip = null;
     
     private popped: boolean = false;
     private anim: cc.Animation = null;
@@ -61,6 +63,7 @@ export default class NewClass extends cc.Component {
         if(Math.random() > 0.9){
             var item = cc.instantiate(this.Mushroom);
             item.getComponent(items).init(this.node);
+            cc.audioEngine.playEffect(this.MushroomAppear,false);
         }
         else{
             var item = cc.instantiate(this.Coin);

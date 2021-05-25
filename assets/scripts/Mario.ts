@@ -188,6 +188,9 @@ export default class Player extends cc.Component {
             this.jumpable = true;
             this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
         }
+        if(other.node.name == 'Coin'){
+            this.jumpable = false;
+        }
         if(other.node.name == 'Lower bound'){
             this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 200);
             this.jumpable = false;

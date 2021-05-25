@@ -33,6 +33,7 @@ export default class Turtle extends cc.Component {
             this.timer+=dt;
             if(this.timer >= 3.0){
                 this.isFaceLeft = !this.isFaceLeft;
+                this.speed *= -1;
                 this.timer = 0.0
             }
             if(this.anim.getAnimationState("Turtle Alive").isPlaying == false)

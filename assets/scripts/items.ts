@@ -20,6 +20,7 @@ export default class items extends cc.Component {
     coinEffect:cc.AudioClip = null;
     @property({type:cc.AudioClip})
     MushroomEffect:cc.AudioClip = null;
+    
     private playervel: number = 0;
     public init(node: cc.Node){
         this.setInitPos(node);
