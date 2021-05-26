@@ -38,8 +38,9 @@ export default class Pirahna extends cc.Component {
             
         }
         let pos = this.player.getPosition();
-        if(pos.x+340  >= this.node.x-50 && this.finishrising == false ){
+        if(pos.x+340  >= this.node.x-50 && this.finishrising == false && this.isRisen == false ){
             this.finishrising = true;
+
             this.flowerMove();
             
         }

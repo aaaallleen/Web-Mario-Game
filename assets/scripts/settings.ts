@@ -29,7 +29,8 @@ export default class NewClass extends cc.Component {
         
     // }
     popup(){
-        if(!this.popupOpen){
+        if(!this.popupOpen && playerData.popup == false){
+            playerData.popup = true;
             this.soundeffectslider.progress = playerData.effectvolume;
             this.bgmslider.progress = playerData.bgmvolume;
             this.node.active = true;
@@ -45,6 +46,7 @@ export default class NewClass extends cc.Component {
         
     }
     closePopUp(){
+        playerData.popup = false;
         cc.tween(this.node)
         .to(0.5,{scale: 0.2, opacity: 0}, {easing:"quartInOut"})
         .call(()=>{this.node.active = false;})

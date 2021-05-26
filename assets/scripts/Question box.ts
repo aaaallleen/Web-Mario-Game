@@ -53,7 +53,6 @@ export default class NewClass extends cc.Component {
     onEndContact(contact, self , other){
         if(other.node.name == "Player"){
             if(contact.getWorldManifold().normal.y == -1 && this.popped == false ){
-                cc.log("get ya coin");
                 this.popped = true;
                 this.activateItem();
             }

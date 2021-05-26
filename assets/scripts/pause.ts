@@ -7,6 +7,7 @@
 // Learn life-cycle callbacks:
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+import playerData = require("./Global");
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -32,7 +33,8 @@ export  class pause extends cc.Component {
     }
     popup(){
         cc.log("pause");
-        if(!this.paused){
+        if(!this.paused && playerData.popup == false ){
+            playerData.popup = true;
             this.scheduleOnce(function(){
                cc.director.pause(); 
                cc.audioEngine.pauseMusic();
@@ -45,12 +47,13 @@ export  class pause extends cc.Component {
             .to(0.5,{scale: 1, opacity: 255}, {easing:"quartInOut"})
             .start();
         }
-        else{
+        else if(!this.paused && playerData.popup == true ){
             this.closePopUp();
             cc.director.resume();  
         }
     }
     closePopUp(){
+        playerData.popup = false
         cc.tween(this.node)
         .to(0.5,{scale: 0.2, opacity: 0}, {easing:"quartInOut"})
         .call(()=>{this.node.active = false;})
@@ -72,6 +75,7 @@ export  class pause extends cc.Component {
         else if(event.keyCode == cc.macro.KEY.enter){
             this.enter = true;
             cc.director.resume();
+            playerData.popup = false;
             if(this.restart == true){
                 cc.tween(this.popUp)
                 .to(0.5,{scale: 0, opacity: 0}, {easing:"quartInOut"})

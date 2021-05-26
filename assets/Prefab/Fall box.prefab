@@ -57,8 +57,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        400.292,
-        -82.29,
+        1698.824,
+        -78.506,
         0,
         0,
         0,
@@ -185,7 +185,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "ce2TZP4JZPUqYQWtbHCgQ9",
+    "fileId": "445UZdlSpCJahSd0qXUnWw",
     "sync": false
   }
 ]

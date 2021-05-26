@@ -9,7 +9,7 @@ export default class Turtle extends cc.Component {
     @property
     walktime: number = 0;
 
-    public isDead: boolean = false;
+    isDead: boolean = false;
     isFaceLeft: boolean = true;
     anim: cc.Animation = null;
     attack: number = 0;

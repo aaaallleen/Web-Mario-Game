@@ -59,10 +59,18 @@ export default class Player extends cc.Component {
     private scrollable: boolean = true;
     private grow: boolean = false;
     private playerspeed: number = 0;
-    
+    private timer: number = 0;
     camera: cc.Node = null;
-
+    time: cc.Node = null;
+    life: cc.Node = null;
+    coin: cc.Node = null;
     onLoad(){
+        playerData.time = 300;
+        this.coin = cc.find("Canvas/Main Camera/Coin");
+        this.coin.getComponent(cc.Label).string = "" + playerData.coin;
+        this.life = cc.find("Canvas/Main Camera/Life");
+        this.life.getComponent(cc.Label).string = "" + playerData.health;
+        this.time = cc.find("Canvas/Main Camera/Time");
         this.lowerbound = cc.find("Canvas/Lower bound");
         cc.director.getPhysicsManager().enabled = true;
         cc.director.getCollisionManager().enabled = true;
@@ -72,11 +80,13 @@ export default class Player extends cc.Component {
         this.camera = cc.find("Canvas/Main Camera");
         if(playerData.level == 1)
             cc.audioEngine.playMusic(this.scene1bgm, true);
-        else
+        else if(playerData.level == 2)
             cc.audioEngine.playMusic(this.scene2bgm, true);
     }
     start(){
+        
         this.lowerbound.active = true;
+        this.attacked = false;
         this.anim = this.getComponent(cc.Animation);
         cc.audioEngine.setEffectsVolume(playerData.effectvolume);
         cc.audioEngine.setMusicVolume(playerData.bgmvolume);
@@ -134,7 +144,17 @@ export default class Player extends cc.Component {
         }
     }
     update (dt) {
-    
+        if(playerData.time == 0){
+            this.isDead = true;
+        }
+        if(this.timer == playerData.fps){
+            playerData.time--;
+            this.time.getComponent(cc.Label).string = ""+ playerData.time;
+            this.timer = 0;
+        }
+        else{
+            this.timer ++;
+        }
         cc.audioEngine.setEffectsVolume(playerData.effectvolume);
         cc.audioEngine.setMusicVolume(playerData.bgmvolume);
         if(this.isDead == true && this.Anim.getAnimationState("Change Scene").isPlaying == false ){
@@ -184,16 +204,20 @@ export default class Player extends cc.Component {
     }
    
     onBeginContact(contact, self, other){
-        if(contact.getWorldManifold().normal.y <= -0.8 ){
+        if(contact.getWorldManifold().normal.y <= -0.8  && other.node.name != 'Coin'){
             this.jumpable = true;
             this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
         }
         if(other.node.name == 'Coin'){
             this.jumpable = false;
+            playerData.coin++;
+            this.coin.getComponent(cc.Label).string = "" + playerData.coin;
+            // other.node.getComponent(cc.RigidBody).destoy();
         }
         if(other.node.name == 'Lower bound'){
             this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 200);
             this.jumpable = false;
+            playerData.health -- ;
             this.getComponent(cc.PhysicsBoxCollider).enabled = false;
             cc.audioEngine.stopMusic();
             cc.audioEngine.playEffect(this.loselife,false);
@@ -211,8 +235,11 @@ export default class Player extends cc.Component {
             other.node.destroy();
         }
         else if(other.node.name == 'Turtle'  && other.getComponent('Turtle').isDead  == false){
-            if(contact.getWorldManifold().normal.x == 1 || contact.getWorldManifold().normal.x == -1){
+
+            if(contact.getWorldManifold().normal.x  > 0.95  || contact.getWorldManifold().normal.x < -0.95){
+
                 if(this.attacked == false){
+
                     if(contact.getWorldManifold().normal.x > 0){
                         this.getComponent(cc.RigidBody).linearVelocity = cc.v2(-200, 200);
                     }
@@ -241,6 +268,7 @@ export default class Player extends cc.Component {
                     },0.5)
                 }
                 else{
+                    playerData.health --;
                     this.isDead = true;
                     cc.audioEngine.stopMusic();
                     cc.audioEngine.playEffect(this.loselife,false);
@@ -290,7 +318,7 @@ export default class Player extends cc.Component {
                    
             }
             else{
-                
+                playerData.health --;
                 cc.audioEngine.stopMusic();
                 cc.audioEngine.playEffect(this.loselife,false);
                 this.getComponent(cc.PhysicsBoxCollider).destroy();
@@ -326,6 +354,12 @@ export default class Player extends cc.Component {
         }
         
 
+    }
+    onPreSolve(contact, self, other){
+        if(other.node.name == 'Coin'){
+            this.jumpable = false;
+            contact.disabledOnce = true;
+        }
     }
     onEndContact(contact, self, other){
         if(other.node.name == 'stop scroll'){

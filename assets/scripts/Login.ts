@@ -15,24 +15,36 @@ const {ccclass, property} = cc._decorator;
 export default class NewClass extends cc.Component {
 
     
-
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
-
+    popUp : cc.Node = null;
+    popUpOpen : boolean = false;
     start () {
-        if(playerData.health > 0){
-            var level = "Level " + playerData.level;
-            this.scheduleOnce(function(){
-                cc.director.loadScene(level);
-            },3)
-        }  
-        else{
-            this.scheduleOnce(function(){
-                cc.director.loadScene("Menu");
-            },3)
+        this.popUp = cc.find("Canvas/Login/Login popup");
+        this.popUp.active = false;
+    }
+    openPopUp(){
+        if(this.popUpOpen == false && playerData.popup == false){
+            playerData.popup = true;
+            this.popUpOpen = true;
+            this.popUp.active = true;
+            this.popUp.opacity = 0;
+            this.popUp.scale = 0.2;
+            cc.tween(this.popUp)
+            .to(0.5,{scale: 3, opacity: 255}, {easing:"quartInOut"})
+            .start();
         }
     }
-
+    closePopup(){
+        playerData.popup = false;
+        this.popUpOpen = false;
+        cc.tween(this.popUp)
+        .to(0.5,{scale: 0.2, opacity: 0}, {easing:"quartInOut"})
+        .call(()=>{this.popUp.active = false;})
+        .start();
+    }
+        
+    
     // update (dt) {}
 }

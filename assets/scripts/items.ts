@@ -20,7 +20,7 @@ export default class items extends cc.Component {
     coinEffect:cc.AudioClip = null;
     @property({type:cc.AudioClip})
     MushroomEffect:cc.AudioClip = null;
-    
+    coin: cc.Node = null;
     private playervel: number = 0;
     public init(node: cc.Node){
         this.setInitPos(node);
@@ -37,8 +37,8 @@ export default class items extends cc.Component {
             this.node.position = cc.v2(0, 17);
             this.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 160);
             playerData.coin ++;
+            this.coin.getComponent(cc.Label).string = "" + playerData.coin;
             cc.audioEngine.playEffect(this.coinEffect, false);
-
             this.scheduleOnce(function(){
                 this.node.destroy();
             },0.4)
@@ -49,9 +49,10 @@ export default class items extends cc.Component {
         }
     }
     onLoad () {
+        this.coin = cc.find("Canvas/Main Camera/Coin");
         cc.director.getPhysicsManager().enabled = true;
         cc.director.getCollisionManager().enabled = true;
-        cc.director.getCollisionManager().enabledDrawBoundingBox = true;
+        // cc.director.getCollisionManager().enabledDrawBoundingBox = true;
         // this.node.active = true;
     }
 
@@ -63,7 +64,8 @@ export default class items extends cc.Component {
     } 
     onBeginContact(contact, self, other){
         if(other.node.name == "Player" && self.node.name == "Coin"){
-            this.playervel = other.getComponent(cc.RigidBody).linearVelocity;
+            // this.playervel = other.getComponent(cc.RigidBody).linearVelocity;
+            contact.disabledOnce = true;
             this.node.destroy();
             cc.audioEngine.playEffect(this.coinEffect, false); 
         }
@@ -74,9 +76,15 @@ export default class items extends cc.Component {
             this.speed *= -1;
         }
     }
+    onPreSolve(contact, self, other){
+        if(other.node.name == "Player" && self.node.name == "Coin"){
+            contact.disabledOnce = true;
+        }
+    }
     onEndContact(contact, self, other){
         if(other.node.name == "Player"&& self.node.name == "Coin"){
-            other.getComponent(cc.RigidBody).linearVelocity = this.playervel;
+            // other.getComponent(cc.RigidBody).linearVelocity = this.playervel;
+            
         }
         
     }
