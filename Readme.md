@@ -1,7 +1,7 @@
 # WebMario
 
-<p align=“center”>
-  <img src=“https://i.imgur.com/6yiId9s.png” alt=“WebMario Welcome Menu”>
+<p align="center">
+  <img src="https://i.imgur.com/6yiId9s.png" alt="WebMario Welcome Menu">
 </p>
 
 ## Play Now: [PLAY](https://web-mario-47dc5.web.app/)
@@ -14,22 +14,22 @@ The main menu consists of four interactive buttons:
 
 - **Start Game:** Enter the game and start playing.
 - **Choose Level:** Select the level you want to play.
-- **Login Form:** (Bottom left) Opens a login form for user authentication.
+- **Login Form:** (Bottom left) Opens a login form for user authentication
 
-<p align=“center”>
-  <img src=“https://i.imgur.com/KvMJuSq.png” alt=“Login Form”>
+<p align="center">
+  <img src="https://i.imgur.com/KvMJuSq.png" alt="Login Form">
 </p>
 
   If you are already logged in, the form is replaced with a greeting message.
 
-<p align=“center”>
-  <img src=“https://i.imgur.com/Mc8PmgW.png” alt=“Logged In Greeting”>
+<p align="center">
+  <img src="https://i.imgur.com/Mc8PmgW.png" alt="Logged In Greeting">
 </p>
 
 - **Settings (Gear Icon):** (Bottom right) Adjust the volume of background music (BGM) and sound effects.
 
-<p align=“center”>
-  <img src=“https://i.imgur.com/rhAlpC2.png” alt=“Volume Settings”>
+<p align="center">
+  <img src="https://i.imgur.com/rhAlpC2.png" alt="Volume Settings">
 </p>
 
   These settings are also available during gameplay.
@@ -38,8 +38,8 @@ The main menu consists of four interactive buttons:
 
 Clicking the **Choose Level** button opens a popup where you can select the desired level.
 
-<p align=“center”>
-  <img src=“https://i.imgur.com/jMfUifx.png” alt=“Level Selection Popup”>
+<p align="center">
+  <img src="https://i.imgur.com/jMfUifx.png" alt="Level Selection Popup">
 </p>
 
 ### Game Controls
@@ -57,8 +57,8 @@ Clicking the **Choose Level** button opens a popup where you can select the desi
 
 ### Level 1
 
-<p align=“center”>
-  <img src=“https://i.imgur.com/Pbz9ONC.png” alt=“Level 1">
+<p align="center">
+  <img src="https://i.imgur.com/Pbz9ONC.png" alt="Level 1">
 </p>
 
 Level 1 is inspired by the original Mario Bros. It features:
@@ -77,8 +77,8 @@ Level 1 is inspired by the original Mario Bros. It features:
 
 ### Level 2
 
-<p align=“center”>
-  <img src=“https://i.imgur.com/vIaiMZb.png” alt=“Level 2”>
+<p align="center">
+  <img src="https://i.imgur.com/vIaiMZb.png" alt="Level 2">
 </p>
 
 Level 2 introduces falling blocks:
@@ -96,12 +96,11 @@ Different BGM tracks and sound effects are present in the game:
 
 ### Special Ability
 
-Mario has a special ability called “Air Jump”:
+Mario has a special ability called "Air Jump":
 
 - **Air Jump:** If Mario falls from a higher platform without jumping, he can perform a mid-air jump, making Level 2 easier to navigate.
 
 
-Message yuxiang.luo
 
 
 
